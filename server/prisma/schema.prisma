@@ -43,8 +43,8 @@ model Follower {
   followedId Int
   createAt   DateTime @default(now())
 
-  follower User @relation("follower", fields: [followerId], references: [id])
-  followed User @relation("followed", fields: [followedId], references: [id])
+  follower User @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  followed User @relation("followed", fields: [followedId], references: [id], onDelete: Cascade)
 
   @@map("followers")
 }
@@ -68,7 +68,7 @@ model Post {
   createAt    DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
-  user     User     @relation(fields: [userId], references: [id])
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   category Category @relation(fields: [categoryId], references: [id])
 
   PostTag      PostTag[]
@@ -125,7 +125,7 @@ model PostTag {
   postId Int
 
   tag  Tag  @relation(fields: [tagId], references: [id])
-  post Post @relation(fields: [postId], references: [id])
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@map("posts_tags")
 }
@@ -136,8 +136,8 @@ model FavoritePost {
   postId   Int
   createAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
-  post Post @relation(fields: [postId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@map("favorites_posts_users")
 }
@@ -148,8 +148,8 @@ model LikedPost {
   postId   Int
   createAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
-  post Post @relation(fields: [postId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@map("liked_posts_users")
 }
