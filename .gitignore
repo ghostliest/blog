@@ -1,10 +1,15 @@
-dist
+
+# production
+build/
+dist/
+static/
 
 # Dependency directories
 node_modules/
 
 # dotenv environment variables file
 .env
+.env*.local
 
 # Logs
 logs
@@ -28,8 +33,18 @@ lerna-debug.log*
 *.sublime-*
 
 # IDE - VSCode
-.vscode/*
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# vercel
+.vercel
+
+# next.js
+.next/
+out/
+
+# typescript
+*.tsbuildinfo
