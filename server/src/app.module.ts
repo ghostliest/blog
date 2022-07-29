@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
 import { TagModule } from './tag/tag.module';
+import { ReactionModule } from './reaction/reaction.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { TagModule } from './tag/tag.module';
     AuthModule,
     CategoryModule,
     TagModule,
+    ReactionModule,
   ],
 })
 export class AppModule {}
