@@ -1,5 +1,5 @@
 import { Controller, HttpException, HttpStatus, UsePipes, Delete } from '@nestjs/common';
-import { ValidationPipe } from '../pipes/validation.pipe';
+import { ValidationPipe } from '../common/pipes/validation.pipe';
 import { UserService } from './user.service';
 import { ServiceException } from 'src/exceptions/service.exception';
 import { Auth } from 'src/common/decorators/auth.decorator';

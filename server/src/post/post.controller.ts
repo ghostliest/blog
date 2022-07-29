@@ -19,7 +19,7 @@ import { Auth } from 'src/common/decorators/auth.decorator';
 import { User } from 'src/common/decorators/user.decorator';
 import { IJwtUser } from 'src/common/interfaces/jwt-user.interface';
 import { ServiceException } from 'src/exceptions/service.exception';
-import { ValidationPipe } from 'src/pipes/validation.pipe';
+import { ValidationPipe } from 'src/common/pipes/validation.pipe';
 import { CreatePostDto } from './dto/create-post.dto';
 import { GetAllPostQueryDto } from './dto/get-all-post-query.dto';
 import { PostService } from './post.service';
