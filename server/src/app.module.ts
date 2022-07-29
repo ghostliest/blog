@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { DatabaseModule } from './database/database.module';
 import { FilesModule } from './files/files.module';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { FilesModule } from './files/files.module';
     },
     DatabaseModule,
     FilesModule,
+    PostModule,
   ],
 })
 export class AppModule {}
