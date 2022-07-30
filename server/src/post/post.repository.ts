@@ -74,7 +74,7 @@ export class PostRepository implements IPostRepository {
         views: true,
         createAt: true,
         updatedAt: true,
-        PostTag: { select: { tag: { select: { value: true } } } },
+        PostTag: { select: { tag: { select: { id: true, value: true } } } },
         user: { select: { firstname: true, lastname: true, id: true } },
         category: { select: { id: true, value: true } },
       },
