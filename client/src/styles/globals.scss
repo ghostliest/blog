@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #f8f9fd;
+  overflow-y: scroll;
+  @apply font-normal text-base text-gray-500 dark:text-gray-400;
+}
+
+@layer base {
+  :root {
+    --primary-color: #556ff6;
+    --primary-color-hover: #e8effe;
+    --primary-color-darker: #4966fd;
+    --border-color: #e5e7eb;
+    --green-1: #e1f5e83b;
+    --green-2: #e1f5e8;
+    --green-3: #22c55e;
+    --yellow-2: #f5f5e1;
+    --yellow-3: #c5b122;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 16px;
+
+  &-track {
+    background-color: transparent;
+  }
+
+  &-thumb {
+    background-color: #00000042;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+
+    &:hover {
+      background-color: #00000061;
+    }
+  }
+}
