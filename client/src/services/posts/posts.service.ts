@@ -12,6 +12,8 @@ import {
   IGetAuthorPostsQuery,
 } from "./posts.interface";
 
+const PATH = "/post";
+
 export const getAllPosts = async (query: IGetAllPostsQuery): Promise<IGetAllPostsResponse> => {
   const { page = 1, limit = 6, categoryId, authorId, tags = "", sort = "date", orderBy = "desc" } = query;
 
@@ -35,19 +37,19 @@ export const getAllPosts = async (query: IGetAllPostsQuery): Promise<IGetAllPost
     return obj;
   };
 
-  return await fetchWrapper("/post", { query: handleQuery() });
+  return await fetchWrapper(`${PATH}`, { query: handleQuery() });
 };
 
 export const getAuthorPosts = async (query: IGetAuthorPostsQuery): Promise<IGetAuthorPostsResponse> => {
-  return await fetchWrapper("/post/get-posts-by-author", { query });
+  return await fetchWrapper(`${PATH}/get-posts-by-author`, { query });
 };
 
 export const getOnePost = async (postId: number): Promise<IGetOnePostResponse> => {
-  return await fetchWrapper(`/post/${postId}`);
+  return await fetchWrapper(`${PATH}/${postId}`);
 };
 
 export const getOnePostProtected = async (postId: number): Promise<IGetOnePostResponse> => {
-  return await fetchWrapper(`/post/get-one-cms/${postId}`, { token: true });
+  return await fetchWrapper(`${PATH}/get-one-cms/${postId}`, { token: true });
 };
 
 export const getAllUserPosts = async ({ page, limit, status }: IGetAllUserPosts): Promise<IUserPostsResponse> => {
@@ -62,18 +64,18 @@ export const getAllUserPosts = async ({ page, limit, status }: IGetAllUserPosts)
     return query;
   };
 
-  return await fetchWrapper(`/post/user`, {
+  return await fetchWrapper(`${PATH}/user`, {
     query: handleQuery(),
     token: true,
   });
 };
 
 export const getCountUserPosts = async (): Promise<IPostCountResponse> => {
-  return await fetchWrapper(`/post/count`, { token: true });
+  return await fetchWrapper(`${PATH}/count`, { token: true });
 };
 
 export const createPost = async (body: FormData): Promise<ICreatePostResponse> => {
-  return await fetchWrapper(`/post`, {
+  return await fetchWrapper(`${PATH}`, {
     method: "POST",
     token: true,
     body,
@@ -81,7 +83,7 @@ export const createPost = async (body: FormData): Promise<ICreatePostResponse> =
 };
 
 export const updatePost = async (postId: number, body: FormData): Promise<ICreatePostResponse> => {
-  return await fetchWrapper(`/post/${postId}`, {
+  return await fetchWrapper(`${PATH}/${postId}`, {
     method: "PUT",
     token: true,
     body,
@@ -89,7 +91,7 @@ export const updatePost = async (postId: number, body: FormData): Promise<ICreat
 };
 
 export const deletePost = async (body: { id: number }): Promise<IDeletePostResponse> => {
-  return await fetchWrapper(`/post`, {
+  return await fetchWrapper(`${PATH}`, {
     method: "DELETE",
     token: true,
     body,
