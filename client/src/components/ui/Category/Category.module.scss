@@ -1,0 +1,28 @@
+.btn {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full font-medium leading-4 cursor-pointer select-none;
+}
+
+.active {
+  @apply text-violet-600 bg-violet-200 dark:bg-violet-200 dark:text-violet-900;
+}
+
+.notActive {
+  @apply text-violet-300 bg-violet-100 dark:bg-violet-200 dark:text-violet-900;
+}
+
+.s {
+  @apply text-xs;
+}
+
+.m {
+  @apply text-sm;
+}
+
+.l {
+  @apply text-lg px-4;
+}
+
+.widthFull {
+  width: 100%;
+  justify-content: center;
+}
