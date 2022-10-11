@@ -1,0 +1,114 @@
+.btn {
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+
+  svg {
+    -webkit-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+  }
+}
+
+.primary {
+  background: var(--primary-color);
+  color: #fff;
+
+  &:hover {
+    background: var(--primary-color);
+    color: #fff;
+  }
+}
+
+.ghost {
+  background: var(--primary-color-hover);
+
+  svg {
+    fill: var(--primary-color);
+  }
+
+  &:hover {
+    background: var(--primary-color);
+
+    svg {
+      fill: #fff;
+    }
+  }
+}
+
+.white {
+  fill: var(--primary-color);
+  background: #fff;
+}
+
+.border {
+  border: 1px solid var(--primary-color);
+  background: #fff;
+  color: var(--primary-color);
+
+  &:hover {
+    background: var(--primary-color);
+    color: #fff;
+  }
+}
+
+.transparent {
+  background: transparent;
+  color: #000;
+
+  &:hover {
+    background: var(--primary-color-hover);
+    color: var(--primary-color);
+  }
+}
+
+.disable {
+  background: #556470;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.top {
+  -webkit-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
+}
+
+.right {
+  -webkit-transform: rotateZ(270deg);
+  transform: rotateZ(270deg);
+}
+
+.left {
+  -webkit-transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
+}
+
+.s {
+  @apply h-5 w-5;
+
+  svg {
+    @apply h-3 w-3;
+  }
+}
+
+.m {
+  @apply h-6 w-6;
+
+  svg {
+    @apply h-4 w-4;
+  }
+}
+
+.l {
+  @apply h-8 w-8;
+
+  svg {
+    @apply h-6 w-6;
+  }
+}
+
+.xl {
+  @apply h-11 w-11;
+
+  svg {
+    @apply h-8 w-8;
+  }
+}
