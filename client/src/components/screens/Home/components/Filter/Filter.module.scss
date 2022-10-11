@@ -1,0 +1,19 @@
+.btnSortBy {
+  width: 100%;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--primary-color);
+  }
+}
+
+.sortIconActive {
+  svg {
+    fill: #fff;
+  }
+}
+
+.down {
+  transform: rotate(180deg);
+}
