@@ -23,7 +23,7 @@ export const Tag = (props: TagsProps) => {
 
   const LinkItem = () => (
     <Link href={`${PublicRoutesEnum.TAG}/${tId}`}>
-      <a>
+      <a className="flex">
         <Item />
       </a>
     </Link>
