@@ -1,6 +1,6 @@
 export type ReactionsCategoryType = "readingList" | "like";
 
-interface IReactionItemResponse {
+export interface IReactionItemResponse {
   count: number;
   thisUser: boolean | undefined;
 }
