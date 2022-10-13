@@ -1,4 +1,4 @@
-import { IGetAllPostsQuery, IPostReaction, IUserReaction } from "@services";
+import { IGetAllPostsQuery, IPost, IUserReaction } from "@services";
 import {
   CountPostsByAuthorActionInterface,
   PostsByAuthorActionInterface,
@@ -7,7 +7,7 @@ import {
   UserPostsByAuthorActionInterface,
 } from "@store/types/postsByUser.types";
 
-export const setPostsByUser = (payload: IPostReaction[] | null): PostsByAuthorActionInterface => {
+export const setPostsByUser = (payload: IPost[] | null): PostsByAuthorActionInterface => {
   return {
     type: PostsByUserActionTypesEnum.SET_AUTHOR_POSTS_POSTS,
     payload,

@@ -1,8 +1,8 @@
-import { IGetAllPostsQuery, IPostReaction, IUserReaction } from "@services";
+import { IGetAllPostsQuery, IPost, IUserReaction } from "@services";
 
 export interface PostsByUserInitialInterface {
   posts: {
-    posts: IPostReaction[] | null;
+    posts: IPost[] | null;
     count: number;
   };
   author: IUserReaction | null;
@@ -18,7 +18,7 @@ export enum PostsByUserActionTypesEnum {
 
 export interface PostsByAuthorActionInterface {
   type: PostsByUserActionTypesEnum.SET_AUTHOR_POSTS_POSTS;
-  payload: IPostReaction[] | null;
+  payload: IPost[] | null;
 }
 
 export interface CountPostsByAuthorActionInterface {
