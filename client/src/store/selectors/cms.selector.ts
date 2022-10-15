@@ -8,9 +8,13 @@ const createdPost = ({ client: { cms } }: RootState) => cms.create.post;
 const deletedPostId = ({ client: { cms } }: RootState) => cms.posts.deletePost.postId;
 const deletedPost = ({ client: { cms } }: RootState) => cms.posts.deletePost.delete;
 
+const layoutWidth = ({ client: { cms } }: RootState) => cms.layout.width;
+
 export const selectPostsQuery = createSelector(postsQuery, (val) => val);
 export const selectPostsQueryStatus = createSelector(postsQueryStatus, (val) => val);
 export const selectPostsCount = createSelector(postsCount, (val) => val);
 export const selectCreatedPost = createSelector(createdPost, (val) => val);
 export const selectDeletedPostId = createSelector(deletedPostId, (val) => val);
 export const selectDeletedPost = createSelector(deletedPost, (val) => val);
+
+export const selectLayoutCmsWidth = createSelector(layoutWidth, (val) => val);

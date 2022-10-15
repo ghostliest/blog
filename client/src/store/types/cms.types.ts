@@ -3,7 +3,14 @@ import { PostStatusType } from "@services";
 export interface CmsInitialInterface {
   posts: PostsInterface;
   create: CreateInterface;
+  layout: LayoutInterface;
 }
+
+export interface LayoutInterface {
+  width: LayoutCmsWidth;
+}
+
+export type LayoutCmsWidth = "s" | "m" | "l" | null;
 
 export interface CreateInterface {
   post: {
@@ -38,6 +45,7 @@ export enum CmsActionTypesEnum {
   SET_POSTS_COUNT = "SET_POSTS_COUNT",
   SET_ERROR_MES_ON_POST_CREATE = "SET_ERROR_MES_ON_POST_CREATE",
   SET_SHOW_SUCCESS_POST_CREATE_NOTIFICATION = "SET_SHOW_SUCCESS_POST_CREATE_NOTIFICATION",
+  SET_CMS_LAYOUT_WIDTH = "SET_CMS_LAYOUT_WIDTH",
 }
 
 export interface DeletePostActionInterface {
@@ -80,6 +88,11 @@ export interface ShowCreatePostNotificationInterface {
   payload: boolean;
 }
 
+export interface LayoutCmsWidthInterface {
+  type: CmsActionTypesEnum.SET_CMS_LAYOUT_WIDTH;
+  payload: LayoutCmsWidth;
+}
+
 export type CmsActions =
   | DeletePostActionInterface
   | DeletePostIdActionInterface
@@ -88,4 +101,5 @@ export type CmsActions =
   | PostsQueryStatusActionInterface
   | PostsCountActionInterface
   | ErrorMesOnPostCreateInterface
-  | ShowCreatePostNotificationInterface;
+  | ShowCreatePostNotificationInterface
+  | LayoutCmsWidthInterface;

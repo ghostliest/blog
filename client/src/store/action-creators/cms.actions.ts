@@ -10,6 +10,8 @@ import {
   PostNavigationType,
   PostsQueryPageActionInterface,
   PostsCountActionInterface,
+  LayoutCmsWidthInterface,
+  LayoutCmsWidth,
 } from "../types/cms.types";
 
 export const setDeletePostId = (payload: number | null): DeletePostIdActionInterface => {
@@ -64,6 +66,13 @@ export const setPostCreateErrorMes = (payload: string): ErrorMesOnPostCreateInte
 export const setPostOnCreateNotification = (payload: boolean): ShowCreatePostNotificationInterface => {
   return {
     type: CmsActionTypesEnum.SET_SHOW_SUCCESS_POST_CREATE_NOTIFICATION,
+    payload,
+  };
+};
+
+export const setLayoutCmsWidth = (payload: LayoutCmsWidth): LayoutCmsWidthInterface => {
+  return {
+    type: CmsActionTypesEnum.SET_CMS_LAYOUT_WIDTH,
     payload,
   };
 };

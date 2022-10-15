@@ -19,6 +19,9 @@ const initialState: CmsInitialInterface = {
       showSuccessNotification: false,
     },
   },
+  layout: {
+    width: null,
+  },
 };
 
 export const CmsReducer = (state = initialState, action: CmsActions): CmsInitialInterface => {
@@ -39,6 +42,8 @@ export const CmsReducer = (state = initialState, action: CmsActions): CmsInitial
       return { ...state, create: { ...state.create, post: { ...state.create.post, errorMessage: action.payload } } };
     case CmsActionTypesEnum.SET_SHOW_SUCCESS_POST_CREATE_NOTIFICATION:
       return { ...state, create: { ...state.create, post: { ...state.create.post, showSuccessNotification: action.payload } } };
+    case CmsActionTypesEnum.SET_CMS_LAYOUT_WIDTH:
+      return { ...state, layout: { ...state.layout, width: action.payload } };
     default:
       return { ...state };
   }
