@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import { Button, ButtonArrow } from "@ui";
 import { PublicRoutesEnum } from "@constants";
-import { selectLayoutCmsWidth } from "@store/selectors/cms.selector";
+import { selectCmsLayoutCmsWidth } from "@store/selectors/cms.selector";
 import { useTypedSelector } from "@hooks";
 import HomeIcon from "@assets/home.svg";
 
 export const NavigateBtns = () => {
-  const size = useTypedSelector(selectLayoutCmsWidth);
+  const size = useTypedSelector(selectCmsLayoutCmsWidth);
 
   const { back } = useRouter();
 

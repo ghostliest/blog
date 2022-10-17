@@ -2,14 +2,14 @@ import { useLayoutEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Button } from "@ui";
 import { useTypedSelector } from "@hooks";
-import { selectLayoutCmsWidth } from "@store/selectors/cms.selector";
+import { selectCmsLayoutCmsWidth } from "@store/selectors/cms.selector";
 import { sideItems } from "../sideItems";
 import { Divider } from ".";
 
 export const ItemsList = () => {
   const [curentItemIdx, setCurentItemIdx] = useState(0);
 
-  const size = useTypedSelector(selectLayoutCmsWidth);
+  const size = useTypedSelector(selectCmsLayoutCmsWidth);
 
   const { pathname, push } = useRouter();
 

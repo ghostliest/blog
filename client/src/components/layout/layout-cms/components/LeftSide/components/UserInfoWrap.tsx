@@ -1,11 +1,11 @@
 import { UserInfo } from "@ui";
 import { useTypedSelector } from "@hooks";
-import { selectLayoutCmsWidth } from "@store/selectors/cms.selector";
+import { selectCmsLayoutCmsWidth } from "@store/selectors/cms.selector";
 import { selectUser } from "@store/selectors/user.selector";
 
 export const UserInfoWrap = () => {
   const user = useTypedSelector(selectUser);
-  const size = useTypedSelector(selectLayoutCmsWidth);
+  const size = useTypedSelector(selectCmsLayoutCmsWidth);
 
   return (
     <div className="fixed bottom-0 mb-4">

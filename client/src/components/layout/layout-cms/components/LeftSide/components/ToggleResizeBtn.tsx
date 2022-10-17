@@ -1,9 +1,9 @@
 import { ButtonArrow } from "@ui";
 import { useActions, useTypedSelector } from "@hooks";
-import { selectLayoutCmsWidth } from "@store/selectors/cms.selector";
+import { selectCmsLayoutCmsWidth } from "@store/selectors/cms.selector";
 
 export const ToggleResizeBtn = () => {
-  const size = useTypedSelector(selectLayoutCmsWidth);
+  const size = useTypedSelector(selectCmsLayoutCmsWidth);
   const { setLayoutCmsWidth } = useActions();
 
   const toggleResize = () => {

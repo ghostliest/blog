@@ -1,6 +1,6 @@
 import { ReactNode, useLayoutEffect } from "react";
 import { useActions, useCurrentWidth, useTypedSelector } from "@hooks";
-import { selectLayoutCmsWidth } from "@store/selectors/cms.selector";
+import { selectCmsLayoutCmsWidth } from "@store/selectors/cms.selector";
 import { LeftSide } from "./components";
 
 const sizes = {
@@ -8,7 +8,7 @@ const sizes = {
 };
 
 export const LayoutCms = ({ children }: { children: ReactNode }) => {
-  const size = useTypedSelector(selectLayoutCmsWidth);
+  const size = useTypedSelector(selectCmsLayoutCmsWidth);
   const { setLayoutCmsWidth } = useActions();
 
   let width = useCurrentWidth();
