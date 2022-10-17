@@ -1,4 +1,4 @@
-import { PostStatusType } from "@services";
+import { IUserPostsResponse, PostStatusType } from "@services";
 
 export interface CmsInitialInterface {
   posts: PostsInterface;
@@ -20,12 +20,13 @@ export interface CreateInterface {
 }
 
 export interface PostsInterface {
+  posts: IUserPostsResponse | null;
+  query: PostsQueryInterface;
+  width: LayoutCmsWidth;
   deletePost: {
     postId: number | null;
     delete: boolean;
   };
-  query: PostsQueryInterface;
-  count: number;
 }
 
 export interface PostsQueryInterface {
@@ -39,10 +40,11 @@ export type PostNavigationType = PostStatusType | "ALL";
 export enum CmsActionTypesEnum {
   SET_DELETE_POST = "SET_DELETE_POST",
   SET_DELETE_POST_ID = "SET_DELETE_POST_ID",
+  SET_CMS_POSTS = "SET_CMS_POSTS",
   SET_POSTS_QUERY = "SET_POSTS_QUERY",
   SET_POSTS_QUERY_PAGE = "SET_POSTS_QUERY_PAGE",
   SET_POSTS_QUERY_STATUS = "SET_POSTS_QUERY_STATUS",
-  SET_POSTS_COUNT = "SET_POSTS_COUNT",
+  SET_POSTS_WIDTH = "SET_POSTS_WIDTH",
   SET_ERROR_MES_ON_POST_CREATE = "SET_ERROR_MES_ON_POST_CREATE",
   SET_SHOW_SUCCESS_POST_CREATE_NOTIFICATION = "SET_SHOW_SUCCESS_POST_CREATE_NOTIFICATION",
   SET_CMS_LAYOUT_WIDTH = "SET_CMS_LAYOUT_WIDTH",
@@ -56,6 +58,11 @@ export interface DeletePostActionInterface {
 export interface DeletePostIdActionInterface {
   type: CmsActionTypesEnum.SET_DELETE_POST_ID;
   payload: number | null;
+}
+
+export interface CmsPostsActionInterface {
+  type: CmsActionTypesEnum.SET_CMS_POSTS;
+  payload: IUserPostsResponse | null;
 }
 
 export interface PostsQueryActionInterface {
@@ -73,9 +80,9 @@ export interface PostsQueryStatusActionInterface {
   payload: PostNavigationType;
 }
 
-export interface PostsCountActionInterface {
-  type: CmsActionTypesEnum.SET_POSTS_COUNT;
-  payload: number;
+export interface PostsWidthActionInterface {
+  type: CmsActionTypesEnum.SET_POSTS_WIDTH;
+  payload: LayoutCmsWidth;
 }
 
 export interface ErrorMesOnPostCreateInterface {
@@ -94,12 +101,13 @@ export interface LayoutCmsWidthInterface {
 }
 
 export type CmsActions =
+  | CmsPostsActionInterface
   | DeletePostActionInterface
   | DeletePostIdActionInterface
   | PostsQueryActionInterface
   | PostsQueryPageActionInterface
   | PostsQueryStatusActionInterface
-  | PostsCountActionInterface
+  | PostsWidthActionInterface
   | ErrorMesOnPostCreateInterface
   | ShowCreatePostNotificationInterface
   | LayoutCmsWidthInterface;

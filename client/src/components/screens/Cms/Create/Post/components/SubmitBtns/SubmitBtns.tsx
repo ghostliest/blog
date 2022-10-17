@@ -1,10 +1,10 @@
 import { Button } from "@ui";
 import { useTypedSelector } from "@hooks";
-import { selectCreatedPost } from "@store/selectors/cms.selector";
+import { selectCmsCreatedPost } from "@store/selectors/cms.selector";
 import { SubmitBtnsProps } from "./SubmitBtns.props";
 
 export const SubmitBtns = ({ handleSubmit }: SubmitBtnsProps) => {
-  const { errorMessage } = useTypedSelector(selectCreatedPost);
+  const { errorMessage } = useTypedSelector(selectCmsCreatedPost);
 
   return (
     <div className="flex flex-col gap-4 border-t border-border-color py-7">

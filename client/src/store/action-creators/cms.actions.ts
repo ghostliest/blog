@@ -1,3 +1,4 @@
+import { IUserPostsResponse } from "@services";
 import {
   CmsActionTypesEnum,
   PostsQueryActionInterface,
@@ -9,9 +10,10 @@ import {
   PostsQueryStatusActionInterface,
   PostNavigationType,
   PostsQueryPageActionInterface,
-  PostsCountActionInterface,
   LayoutCmsWidthInterface,
   LayoutCmsWidth,
+  PostsWidthActionInterface,
+  CmsPostsActionInterface,
 } from "../types/cms.types";
 
 export const setDeletePostId = (payload: number | null): DeletePostIdActionInterface => {
@@ -24,6 +26,13 @@ export const setDeletePostId = (payload: number | null): DeletePostIdActionInter
 export const setDeletePost = (payload: boolean): DeletePostActionInterface => {
   return {
     type: CmsActionTypesEnum.SET_DELETE_POST,
+    payload,
+  };
+};
+
+export const setCmsPosts = (payload: IUserPostsResponse | null): CmsPostsActionInterface => {
+  return {
+    type: CmsActionTypesEnum.SET_CMS_POSTS,
     payload,
   };
 };
@@ -49,9 +58,9 @@ export const setPostsQueryStatus = (payload: PostNavigationType): PostsQueryStat
   };
 };
 
-export const setPostsCount = (payload: number): PostsCountActionInterface => {
+export const setPostsWidth = (payload: LayoutCmsWidth): PostsWidthActionInterface => {
   return {
-    type: CmsActionTypesEnum.SET_POSTS_COUNT,
+    type: CmsActionTypesEnum.SET_POSTS_WIDTH,
     payload,
   };
 };
