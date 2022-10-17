@@ -41,11 +41,11 @@ export const Auth = (props: AuthProps) => {
           className="absolute top-[25px] left-[-25px]"
           onClick={(e) => handleClickBack(e)}
         />
-        <div className="flex flex-col gap-8 text-center h-full justify-between">
+        <form className="flex flex-col h-full justify-between text-center">
           <span className="font-semibold text-3xl">{type}</span>
           <Inputs Inputs={InputGroup} error={errorMessage} />
           <Btns />
-        </div>
+        </form>
       </div>
     </div>
   );

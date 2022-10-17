@@ -63,7 +63,7 @@ export const SignUp = () => {
 
   const InputGroup = () => (
     <>
-      <Input type="text" ref={emailRef} placeholder="Email" isEmail={true} />
+      <Input type="text" ref={emailRef} placeholder="Email" isEmail={true} autoFocus />
       <Input type="text" ref={firstNameRef} placeholder="First Name" showCounter={true} minLength={2} maxLength={10} />
       <Input type="text" ref={lastNameRef} placeholder="Last Name" showCounter={true} minLength={2} maxLength={10} />
       <Input type="password" ref={passwordRef} placeholder="Password" showCounter={true} minLength={4} maxLength={16} />

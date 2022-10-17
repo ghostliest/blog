@@ -57,7 +57,7 @@ export const SignIn = () => {
 
   const InputGroup = () => (
     <>
-      <Input type="text" ref={emailRef} placeholder="Email" isEmail={true} />
+      <Input type="text" ref={emailRef} placeholder="Email" isEmail={true} autoFocus />
       <Input type="password" ref={passwordRef} placeholder="Password" showCounter={true} minLength={4} maxLength={16} />
     </>
   );
