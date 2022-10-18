@@ -1,10 +1,12 @@
 import { ICategoryRepository } from './category.repository';
 import { ICreateCategoryDto } from './dto/create-category.dto';
 import { ServiceException } from '../exceptions/service.exception';
+import { ISearchCategoryQueryDto } from './dto/search-category-query.dto';
 
 interface ICategoryService {
   create(dto: ICreateCategoryDto): Promise<any>;
   getAll(): Promise<{ id: number; value: string }[]>;
+  search(dto: ISearchCategoryQueryDto): Promise<{ id: number; value: string }[] | []>;
 }
 
 export class CategoryService implements ICategoryService {
@@ -21,5 +23,9 @@ export class CategoryService implements ICategoryService {
 
   async getAll(): Promise<{ id: number; value: string }[]> {
     return await this._repo.getAll();
+  }
+
+  async search(dto: ISearchCategoryQueryDto): Promise<{ id: number; value: string }[] | []> {
+    return await this._repo.search(dto);
   }
 }
