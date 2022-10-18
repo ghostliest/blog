@@ -1,0 +1,98 @@
+.btn {
+  transition: all 0.3s ease-in;
+  -webkit-transition: all 0.3s ease-in;
+
+  svg {
+    transition: all 0.3s ease-in;
+    -webkit-transition: all 0.3s ease-in;
+  }
+}
+
+.primary {
+  background: var(--primary-color);
+  color: #fff;
+
+  svg {
+    fill: #fff;
+  }
+
+  &:hover {
+    background: var(--primary-color-darker);
+    color: #fff;
+  }
+}
+
+.primaryActive {
+  background: var(--primary-color);
+  color: #fff;
+
+  svg {
+    fill: #fff;
+  }
+}
+
+.light {
+  background: #fff;
+  color: var(--primary-color);
+
+  &:hover {
+    background: var(--primary-color-hover);
+  }
+}
+
+.ghost {
+  background: var(--primary-color-hover);
+  color: var(--primary-color);
+
+  &:hover {
+    background: var(--primary-color);
+    color: #fff;
+  }
+}
+
+.outline {
+  border: 1px solid var(--primary-color);
+  background: #fff;
+  color: var(--primary-color);
+
+  &:hover {
+    background: var(--primary-color);
+    color: #fff;
+  }
+}
+
+.outlineHoverRed {
+  border: 1px solid var(--primary-color);
+  background: #fff;
+  color: var(--primary-color);
+
+  &:hover {
+    border-color: #e90000;
+    background: #e90000;
+    color: #fff;
+  }
+}
+
+.transparent {
+  background: transparent;
+  color: var(--primary-color);
+
+  svg {
+    fill: var(--primary-color);
+  }
+
+  &:hover {
+    background: var(--primary-color-hover);
+    color: var(--primary-color);
+
+    svg {
+      fill: var(--primary-color);
+    }
+  }
+}
+
+.disable {
+  background: #556470;
+  color: #fff;
+  cursor: not-allowed;
+}

@@ -1,0 +1,69 @@
+.inputContainer {
+  position: relative;
+  background-color: #fff;
+  border: 2px dashed var(--border-color);
+  border-radius: 10px;
+  width: 100%;
+  aspect-ratio: 16/9;
+  cursor: pointer;
+}
+
+.inputContainerWithImg {
+  @apply border-green-500 bg-transparent;
+}
+
+.infoContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background: var(--primary-color-hover);
+  padding: 8px 12px;
+  transition: all 0.2s ease-in-out;
+  z-index: 10;
+}
+
+.infoContainerWithImg {
+  opacity: 0;
+}
+
+.inputContainer:hover .infoContainerWithImg {
+  opacity: 1;
+}
+
+.infoContainerWithoutImg {
+  opacity: 1;
+}
+
+.info {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.imgUpload {
+  position: relative;
+  border-radius: 10px;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.inputContainer:hover .imgUploadContainer::before {
+  opacity: 1;
+}
+
+.imgUploadContainer::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: "";
+  color: #fff;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  transition: opacity 0.15s ease-in-out;
+  z-index: 5;
+}
