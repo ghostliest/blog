@@ -11,6 +11,7 @@ interface ICreateResponse {
 export interface IUserRepository {
   create(data: ISingupDto): Promise<ICreateResponse>;
   getByEmail(email: string): Promise<User | null>;
+  getById(id: number): Promise<User | null>;
   update(): Promise<any>;
   delete(userId: number): Promise<void>;
 }
@@ -29,6 +30,10 @@ export class UserRepository implements IUserRepository {
     return await this._db.user.findUnique({
       where: { email },
     });
+  }
+
+  async getById(id: number): Promise<User | null> {
+    return await this._db.user.findUnique({ where: { id } });
   }
 
   async update(): Promise<any> {

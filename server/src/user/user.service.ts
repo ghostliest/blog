@@ -6,8 +6,19 @@ import { IFilesService } from 'src/files/files.service';
 export interface IUserService {
   create(data: Prisma.UserCreateInput): Promise<{ id: number; role: string; email: string }>;
   getByEmail(email: string): Promise<User | null>;
+  getByIdMini(id: number): Promise<GetByIdMiniResponse>;
   delete(userId: number): Promise<{ result: string }>;
 }
+
+type GetByIdMiniResponse =
+  | {
+      id: number;
+      firstname: string;
+      lastname: string;
+      email: string;
+      createAt: Date;
+    }
+  | { user: null };
 
 export class UserService implements IUserService {
   constructor(
@@ -22,6 +33,21 @@ export class UserService implements IUserService {
 
   async getByEmail(email: string): Promise<User | null> {
     return await this._repo.getByEmail(email);
+  }
+
+  async getByIdMini(id: number): Promise<GetByIdMiniResponse> {
+    const user = await this._repo.getById(id);
+    if (user?.id) {
+      return {
+        id: user.id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        createAt: user.createAt,
+      };
+    } else {
+      return { user: null };
+    }
   }
 
   async delete(userId: number): Promise<{ result: string }> {
