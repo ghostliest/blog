@@ -20,5 +20,6 @@ import { DATABASE, DatabaseModule } from '../database/database.module';
       inject: [DATABASE],
     },
   ],
+  exports: [ReactionService],
 })
 export class ReactionModule {}

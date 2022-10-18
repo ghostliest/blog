@@ -1,9 +1,10 @@
 import { IReactionRepository } from './reaction.repository';
 import { IAddReactionDto } from './dto/add-reaction.dto';
 import { IGetReactionDto } from './dto/get-reaction.dto';
+import { IActivityDto, IActivityResponse } from './types/activity.interface';
 
 export interface IReactionAddResponse {
-  category: 'readinglist' | 'like';
+  category: 'readingList' | 'like';
   result: 'create' | 'destroy' | 'true' | 'false';
 }
 
@@ -12,6 +13,7 @@ export interface IReactionService {
   get(dto: IGetReactionDto): Promise<any>;
   check(dto: IAddReactionDto, userId: number): Promise<IReactionAddResponse>;
   count(dto: { postId: number }): Promise<any>;
+  getLastActivity(dto: IActivityDto): Promise<IActivityResponse>;
 }
 
 export class ReactionService implements IReactionService {
@@ -27,7 +29,7 @@ export class ReactionService implements IReactionService {
         await this._repo.addLike(dto.postId, dto.userId);
         return { category: dto.category, result: 'create' };
       }
-    } else if (dto.category === 'readinglist') {
+    } else if (dto.category === 'readingList') {
       const favorite = await this._repo.getFavorite(dto.postId, dto.userId);
       if (favorite?.id) {
         await this._repo.deleteFavorite(favorite.id);
@@ -39,10 +41,17 @@ export class ReactionService implements IReactionService {
     }
   }
 
-  async get(dto: IGetReactionDto): Promise<any> {
-    const count = await this._repo.count(dto.postId);
-    const userReadingList = await this._repo.getFavorite(dto.postId, dto.userId);
-    const userlike = await this._repo.getLike(dto.postId, dto.userId);
+  async get({ postId, userId }: IGetReactionDto): Promise<any> {
+    const count = await this._repo.count(postId);
+
+    let userReadingList;
+    let userlike;
+
+    if (userId) {
+      userReadingList = await this._repo.getFavorite(postId, userId);
+      userlike = await this._repo.getLike(postId, userId);
+    }
+
     return {
       readingList: {
         count: count.readingList,
@@ -63,7 +72,7 @@ export class ReactionService implements IReactionService {
       } else {
         return { category: dto.category, result: 'false' };
       }
-    } else if (dto.category === 'readinglist') {
+    } else if (dto.category === 'readingList') {
       const favorite = await this._repo.getFavorite(dto.postId, userId);
       if (favorite?.id) {
         return { category: dto.category, result: 'true' };
@@ -75,5 +84,14 @@ export class ReactionService implements IReactionService {
 
   async count(dto: { postId: number }): Promise<any> {
     return this._repo.count(dto.postId);
+  }
+
+  async getLastActivity(dto: IActivityDto): Promise<IActivityResponse> {
+    const liked = await this._repo.getLikedActivity(dto);
+    const favorites = await this._repo.getFavoritesActivity(dto);
+    return {
+      liked,
+      favorites,
+    };
   }
 }

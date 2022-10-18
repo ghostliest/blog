@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsEnum, IsNumber, IsEmpty } from 'class-validator';
 
-type categoriesType = 'readinglist' | 'like';
-const categories: categoriesType[] = ['readinglist', 'like'];
+type categoriesType = 'readingList' | 'like';
+const categories: categoriesType[] = ['readingList', 'like'];
 
 export interface IAddReactionDto {
   category: categoriesType;

@@ -1,5 +1,6 @@
 import { FavoritePost, LikedPost } from '@prisma/client';
 import { PrismaService } from 'src/database/prisma.service';
+import { IActivity } from './types/activity.interface';
 
 export interface IReactionRepository {
   addFavorite(postId: number, userId: number): Promise<FavoritePost>;
@@ -9,6 +10,8 @@ export interface IReactionRepository {
   deleteFavorite(id: number): Promise<boolean>;
   deleteLike(id: number): Promise<boolean>;
   count(postId: number): Promise<{ readingList: number; liked: number }>;
+  getLikedActivity(dto: { page: number; limit: number }): Promise<IActivity[]>;
+  getFavoritesActivity(dto: { page: number; limit: number }): Promise<IActivity[]>;
 }
 
 export class ReactionRepository implements IReactionRepository {
@@ -68,5 +71,35 @@ export class ReactionRepository implements IReactionRepository {
       readingList: count[0]._count.FavoritePost,
       liked: count[0]._count.LikedPost,
     };
+  }
+
+  async getLikedActivity(dto: { page: number; limit: number }): Promise<IActivity[]> {
+    const { page, limit } = dto;
+
+    return await this._db.likedPost.findMany({
+      skip: page * limit - limit,
+      take: limit,
+      select: {
+        createAt: true,
+        post: { select: { id: true, title: true } },
+        user: { select: { id: true, firstname: true, lastname: true } },
+      },
+      orderBy: { createAt: 'desc' },
+    });
+  }
+
+  async getFavoritesActivity(dto: { page: number; limit: number }): Promise<IActivity[]> {
+    const { page, limit } = dto;
+
+    return await this._db.favoritePost.findMany({
+      skip: page * limit - limit,
+      take: limit,
+      select: {
+        createAt: true,
+        post: { select: { id: true, title: true } },
+        user: { select: { id: true, firstname: true, lastname: true } },
+      },
+      orderBy: { createAt: 'desc' },
+    });
   }
 }
