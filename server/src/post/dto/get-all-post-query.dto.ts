@@ -1,12 +1,4 @@
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsArray,
-  ArrayMinSize,
-  ArrayMaxSize,
-  IsEnum,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsEnum } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 
 type Sort = 'date' | 'popular' | 'views';
@@ -18,7 +10,8 @@ const orderByArr: OrderBy[] = ['asc', 'desc'];
 export interface IGetAllPostQueryDto {
   page: number;
   limit: number;
-  categoryId?: number;
+  categoryId?: number | undefined;
+  authorId?: number | undefined;
   tags?: number[];
   sort: Sort;
   orderBy: OrderBy;
@@ -36,14 +29,15 @@ export class GetAllPostQueryDto implements IGetAllPostQueryDto {
   limit: number;
 
   @IsOptional()
-  @Type(() => Number)
-  categoryId?: number;
+  @Transform(({ value }) => +value || undefined)
+  categoryId?: number | undefined;
 
   @IsOptional()
-  @Transform(({ value }) => JSON.parse(value) || null)
-  @IsArray()
-  @ArrayMinSize(1)
-  @ArrayMaxSize(5)
+  @Transform(({ value }) => +value || undefined)
+  authorId?: number | undefined;
+
+  @IsOptional()
+  @Transform(({ value }) => value.split(',').map(Number))
   tags?: number[];
 
   @IsEnum(sortArr)
