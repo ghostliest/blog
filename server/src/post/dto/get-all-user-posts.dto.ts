@@ -1,8 +1,6 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsEnum } from 'class-validator';
 import { Type } from 'class-transformer';
-
-type PostStatus = 'DRAFT' | 'ACTIVE' | 'BLOCKED';
-const statusArr: PostStatus[] = ['DRAFT', 'ACTIVE', 'BLOCKED'];
+import { PostStatus } from '@prisma/client';
 
 export interface IGetAllUserPostsDto extends IGetAllUserPostsQueryDto {
   userId: number;
@@ -26,6 +24,6 @@ export class GetAllUserPostsQueryDto implements IGetAllUserPostsQueryDto {
   limit: number;
 
   @IsOptional()
-  @IsEnum(statusArr)
+  @IsEnum(PostStatus)
   status: PostStatus | undefined = undefined;
 }

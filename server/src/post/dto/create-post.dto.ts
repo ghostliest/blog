@@ -9,15 +9,14 @@ import {
   IsEmpty,
 } from 'class-validator';
 import { Type, Transform } from 'class-transformer';
-
-type Status = 'DRAFT' | 'ACTIVE' | 'BLOCKED';
+import { PostStatus } from '@prisma/client';
 
 export interface ICreatePostDto {
   title: string;
   description: string;
   content: string;
   img: string;
-  status: Status;
+  status: PostStatus;
   userId: number;
   categoryId: number;
   tags: number[];
@@ -40,7 +39,7 @@ export class CreatePostDto implements ICreatePostDto {
   img: string = null;
 
   @IsNotEmpty()
-  status: Status;
+  status: PostStatus;
 
   @IsEmpty()
   userId: number = null;

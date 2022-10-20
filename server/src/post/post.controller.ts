@@ -41,7 +41,7 @@ export class PostController {
     @User() user: IJwtUser,
   ) {
     try {
-      return await this._postService.create(file, { ...dto, userId: user.id });
+      return await this._postService.create({ file, dto: { ...dto, userId: user.id } });
     } catch (error) {
       if (error instanceof ServiceException) {
         throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -62,7 +62,7 @@ export class PostController {
     @User() user: IJwtUser,
   ) {
     try {
-      return await this._postService.update(file, id, { ...dto, userId: user.id });
+      return await this._postService.update({ file, id, dto: { ...dto, userId: user.id } });
     } catch (error) {
       if (error instanceof ServiceException) {
         throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -105,7 +105,7 @@ export class PostController {
   @Get('get-posts-by-author')
   async getPostsByAuthor(@Query() dto: GetPostsByAuthorDto) {
     try {
-      return await this._postService.getPostsByAuthor(dto);
+      return await this._postService.getByAuthor(dto);
     } catch (error) {
       if (error instanceof ServiceException) {
         throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -118,7 +118,7 @@ export class PostController {
   @Get(':id')
   async getOne(@Param('id', ParseIntPipe) id: number) {
     try {
-      return await this._postService.getOne(id);
+      return await this._postService.getOne({ id });
     } catch (error) {
       if (error instanceof ServiceException) {
         throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -132,7 +132,7 @@ export class PostController {
   @Get('get-one-cms/:id')
   async getOneFromCms(@Param('id', ParseIntPipe) id: number, @User() user: IJwtUser) {
     try {
-      return await this._postService.getOne(id, user.id);
+      return await this._postService.getOne({ id, userId: user.id });
     } catch (error) {
       if (error instanceof ServiceException) {
         throw new HttpException(error.message, HttpStatus.BAD_REQUEST);

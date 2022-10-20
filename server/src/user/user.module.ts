@@ -5,7 +5,8 @@ import { UserRepository } from './user.repository';
 import { DATABASE, DatabaseModule } from 'src/database/database.module';
 import { FilesModule, FILES_SERVICE } from 'src/files/files.module';
 import { PostModule } from 'src/post/post.module';
-import { IPostService, PostService } from 'src/post/post.service';
+import { PostService } from 'src/post/post.service';
+import { IPostService } from 'src/post/types/service.types';
 import { IFilesService } from 'src/files/files.service';
 import { IUserRepository } from './types/repository.types';
 

@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { PostService } from './post.service';
 import { PostController } from './post.controller';
-import { IPostRepository, PostRepository } from './post.repository';
+import { PostRepository } from './post.repository';
 import { IFilesService } from 'src/files/files.service';
 import { FilesModule, FILES_SERVICE } from 'src/files/files.module';
 import { DATABASE, DatabaseModule } from 'src/database/database.module';
+import { IPostRepository } from './types/repository.types';
 
 @Module({
   imports: [DatabaseModule, FilesModule],

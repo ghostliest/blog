@@ -4,52 +4,22 @@ import { ICreatePostDto } from './dto/create-post.dto';
 import { IGetAllPostQueryDto } from './dto/get-all-post-query.dto';
 import { IGetAllUserPostsDto } from './dto/get-all-user-posts.dto';
 import { IGetPostsByAuthorDto } from './dto/getPostsByAuthor.dto';
-
-interface IGetOne {
-  category: {
-    id: number;
-    value: string;
-  };
-  createAt: Date;
-  user: {
-    id: number;
-    firstname: string;
-    lastname: string;
-  };
-  id: number;
-  PostTag: {
-    tag: {
-      value: string;
-    };
-  }[];
-  status: 'DRAFT' | 'ACTIVE' | 'BLOCKED';
-  img: string;
-  views: number;
-  title: string;
-  description: string;
-  content: string;
-  updatedAt: Date;
-}
-
-export interface IPostRepository {
-  create(dto: ICreatePostDto): Promise<Post>;
-  update(postId: number, dto: ICreatePostDto): Promise<Post>;
-  getOne(id: number): Promise<IGetOne | null>;
-  getPostsByAuthor(dto: IGetPostsByAuthorDto): Promise<any>;
-  getAll(dto: IGetAllPostQueryDto): Promise<any>;
-  getAllImgByUserId(userId: number): Promise<{ img: string }[]>;
-  getAllUserPosts(dto: IGetAllUserPostsDto): Promise<any>;
-  checkByTitle(title: string): Promise<boolean>;
-  checkById(id: number): Promise<boolean>;
-  delete(id: number): Promise<{ id: number; img: string }>;
-  countByStatus(userId: number): Promise<{ _count: { status: number }; status: string }[]>;
-}
+import {
+  IPostRepository,
+  IGetOneResponse,
+  IGetByAuthorResponse,
+  IGetAllResponse,
+  TGetAllImgByUserId,
+  IGetAllUserPostsResponse,
+  IDeleteResponse,
+  TCountByStatusResponse,
+} from './types/repository.types';
 
 export class PostRepository implements IPostRepository {
   constructor(private _db: PrismaService) {}
 
   async create(dto: ICreatePostDto): Promise<Post> {
-    const result = await this._db.post.create({
+    return await this._db.post.create({
       data: {
         title: dto.title,
         content: dto.content,
@@ -65,11 +35,10 @@ export class PostRepository implements IPostRepository {
         },
       },
     });
-    return result;
   }
 
-  async update(postId: number, dto: ICreatePostDto): Promise<Post> {
-    const res = await this._db.post.update({
+  async update(id: number, dto: ICreatePostDto): Promise<Post> {
+    return await this._db.post.update({
       data: {
         title: dto.title,
         content: dto.content,
@@ -79,20 +48,18 @@ export class PostRepository implements IPostRepository {
         category: { connect: { id: dto.categoryId } },
         PostTag: {
           deleteMany: {
-            postId: postId,
+            postId: id,
           },
           createMany: {
             data: dto.tags.map((tagId) => ({ tagId })),
           },
         },
       },
-      where: { id: postId },
+      where: { id },
     });
-
-    return res;
   }
 
-  async getOne(id: number): Promise<IGetOne | null> {
+  async getOne(id: number): Promise<IGetOneResponse | null> {
     const post = await this._db.post.findFirst({
       where: { id },
       select: {
@@ -114,7 +81,7 @@ export class PostRepository implements IPostRepository {
     return post?.id ? post : null;
   }
 
-  async getPostsByAuthor(dto: IGetPostsByAuthorDto): Promise<any> {
+  async getByAuthor(dto: IGetPostsByAuthorDto): Promise<IGetByAuthorResponse> {
     const posts = await this._db.post.findMany({
       skip: dto.page * dto.limit - dto.limit,
       take: dto.limit,
@@ -146,7 +113,7 @@ export class PostRepository implements IPostRepository {
     return { count, posts };
   }
 
-  async getAll(dto: IGetAllPostQueryDto): Promise<any> {
+  async getAll(dto: IGetAllPostQueryDto): Promise<IGetAllResponse> {
     const { page, limit, categoryId, authorId, tags, sort, orderBy } = dto;
 
     const handleOrderBy = () => {
@@ -194,14 +161,14 @@ export class PostRepository implements IPostRepository {
     return { count, posts };
   }
 
-  async getAllImgByUserId(userId: number): Promise<{ img: string }[]> {
+  async getAllImgByUserId(userId: number): Promise<TGetAllImgByUserId> {
     return await this._db.post.findMany({
       where: { userId },
       select: { img: true },
     });
   }
 
-  async getAllUserPosts(dto: IGetAllUserPostsDto): Promise<any> {
+  async getAllUserPosts(dto: IGetAllUserPostsDto): Promise<IGetAllUserPostsResponse> {
     const posts = await this._db.post.findMany({
       skip: dto.page * dto.limit - dto.limit,
       take: dto.limit,
@@ -260,21 +227,20 @@ export class PostRepository implements IPostRepository {
     return !!post?.id;
   }
 
-  async delete(id: number): Promise<{ id: number; img: string }> {
-    const post = await this._db.post.delete({
+  async delete(id: number): Promise<IDeleteResponse> {
+    return await this._db.post.delete({
       where: { id },
       select: { id: true, img: true },
     });
-    return post;
   }
 
-  async countByStatus(userId: number): Promise<{ _count: { status: number }; status: string }[]> {
+  async countByStatus(userId: number): Promise<TCountByStatusResponse> {
     return (await this._db.post.groupBy({
       by: ['status'],
       where: { userId },
       _count: {
         status: true,
       },
-    })) as any;
+    })) as unknown as TCountByStatusResponse;
   }
 }

@@ -1,4 +1,4 @@
-import { IPostService } from 'src/post/post.service';
+import { IPostService } from 'src/post/types/service.types';
 import { IFilesService } from 'src/files/files.service';
 import { ISingupDto } from 'src/auth/dto/signup.dto';
 import { IDeleteUserResponse, TGetByIdMiniResponse, IUserService } from './types/service.types';
