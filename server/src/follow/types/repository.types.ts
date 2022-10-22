@@ -8,12 +8,12 @@ export interface IFollowRepository {
   delete(id: number): Promise<boolean>;
   followers(userId: number): Promise<number>;
   followed(userId: number): Promise<number>;
-  getLastActivity(dto: IActivityDto): Promise<TActivityResponse>;
+  getLastActivity(dto: IActivityDto): Promise<IActivityFollowResponse[]>;
 }
 
 export type TGetResponse = Follower;
 
-export type TActivityResponse = {
+export interface IActivityFollowResponse {
   createAt: Date;
   follower: {
     id: number;
@@ -25,7 +25,9 @@ export type TActivityResponse = {
     firstname: string;
     lastname: string;
   };
-}[];
+}
+
+export type TActivityFollow = Omit<IActivityFollowResponse, 'createAt'>;
 
 export interface IActivityDto {
   page: number;

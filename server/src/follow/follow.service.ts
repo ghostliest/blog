@@ -1,7 +1,7 @@
 import { ICheckFollowQueryDto } from './dto/checkFollowQuery.dto';
 import { ICountFollowQueryDto } from './dto/countFollowQuery.dto';
 import { ICreateFollowDto } from './dto/createFollow.dto';
-import { IActivityDto, IFollowRepository, TActivityResponse } from './types/repository.types';
+import { IActivityDto, IFollowRepository, IActivityFollowResponse } from './types/repository.types';
 import {
   ICheckResponse,
   ICountResponse,
@@ -35,7 +35,7 @@ export class FollowService implements IFollowService {
     return { followers, followed };
   }
 
-  async getLastActivity(dto: IActivityDto): Promise<TActivityResponse> {
+  async getLastActivity(dto: IActivityDto): Promise<IActivityFollowResponse[]> {
     return await this._repo.getLastActivity(dto);
   }
 }

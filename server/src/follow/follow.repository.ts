@@ -4,7 +4,7 @@ import { ICreateFollowDto } from './dto/createFollow.dto';
 import {
   IActivityDto,
   IFollowRepository,
-  TActivityResponse,
+  IActivityFollowResponse,
   TGetResponse,
 } from './types/repository.types';
 
@@ -50,7 +50,7 @@ export class FollowRepository implements IFollowRepository {
     return follower.followerId;
   }
 
-  async getLastActivity({ page, limit }: IActivityDto): Promise<TActivityResponse> {
+  async getLastActivity({ page, limit }: IActivityDto): Promise<IActivityFollowResponse[]> {
     return await this._db.follower.findMany({
       skip: page * limit - limit,
       take: limit,
