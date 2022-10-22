@@ -1,5 +1,5 @@
 import { IGetLastActivityReactionDto } from '../dto/GetLastActivityReactionQuery.dto';
-import { TActivityReaction } from 'src/reaction/types/activity.interface';
+import { TActivityReaction } from 'src/reaction/types/repository.types';
 import { TActivityFollow as IActivityFollow } from 'src/follow/types/repository.types';
 
 export interface IActivityService {

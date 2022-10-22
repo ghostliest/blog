@@ -1,6 +1,6 @@
 import { getTime } from 'src/common/utils/getTime';
 import { IFollowService } from 'src/follow/types/service.types';
-import { IReactionService } from 'src/reaction/reaction.service';
+import { IReactionService } from 'src/reaction/types/service.types';
 import { IGetLastActivityReactionDto } from './dto/GetLastActivityReactionQuery.dto';
 import { IActivityService, IActivityResponse } from './types/service.types';
 
