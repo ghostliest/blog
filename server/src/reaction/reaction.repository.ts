@@ -1,47 +1,45 @@
-import { FavoritePost, LikedPost } from '@prisma/client';
 import { PrismaService } from 'src/database/prisma.service';
-import { IActivity } from './types/activity.interface';
-
-export interface IReactionRepository {
-  addFavorite(postId: number, userId: number): Promise<FavoritePost>;
-  addLike(postId: number, userId: number): Promise<LikedPost>;
-  getFavorite(postId: number, userId: number): Promise<FavoritePost>;
-  getLike(postId: number, userId: number): Promise<LikedPost>;
-  deleteFavorite(id: number): Promise<boolean>;
-  deleteLike(id: number): Promise<boolean>;
-  count(postId: number): Promise<{ readingList: number; liked: number }>;
-  getLikedActivity(dto: { page: number; limit: number }): Promise<IActivity[]>;
-  getFavoritesActivity(dto: { page: number; limit: number }): Promise<IActivity[]>;
-}
+import {
+  IActivityDto,
+  IActivityReactionResponse,
+  ICountResponse,
+  IReactionRepository,
+  TAddFavorite,
+  TAddFavoriteResponse,
+  TAddLike,
+  TAddLikeResponse,
+  TGetFavorite,
+  TGetFavoriteResponse,
+  TGetLike,
+  TGetLikeResponse,
+} from './types/repository.types';
 
 export class ReactionRepository implements IReactionRepository {
   constructor(private _db: PrismaService) {}
 
-  async addFavorite(postId: number, userId: number): Promise<FavoritePost> {
-    const favorite = await this._db.favoritePost.create({
+  async addFavorite({ postId, userId }: TAddFavorite): Promise<TAddFavoriteResponse> {
+    return await this._db.favoritePost.create({
       data: {
         post: { connect: { id: postId } },
         user: { connect: { id: userId } },
       },
     });
-    return favorite;
   }
 
-  async addLike(postId: number, userId: number): Promise<LikedPost> {
-    const like = await this._db.likedPost.create({
+  async addLike({ postId, userId }: TAddLike): Promise<TAddLikeResponse> {
+    return await this._db.likedPost.create({
       data: {
         post: { connect: { id: postId } },
         user: { connect: { id: userId } },
       },
     });
-    return like;
   }
 
-  async getFavorite(postId: number, userId: number): Promise<FavoritePost> {
+  async getFavorite({ postId, userId }: TGetFavorite): Promise<TGetFavoriteResponse> {
     return await this._db.favoritePost.findFirst({ where: { userId, postId } });
   }
 
-  async getLike(postId: number, userId: number): Promise<LikedPost> {
+  async getLike({ postId, userId }: TGetLike): Promise<TGetLikeResponse> {
     return await this._db.likedPost.findFirst({ where: { userId, postId } });
   }
 
@@ -55,7 +53,7 @@ export class ReactionRepository implements IReactionRepository {
     return !!like?.postId;
   }
 
-  async count(postId: number): Promise<{ readingList: number; liked: number }> {
+  async count(postId: number): Promise<ICountResponse> {
     const count = await this._db.post.findMany({
       where: { id: postId },
       select: {
@@ -67,13 +65,14 @@ export class ReactionRepository implements IReactionRepository {
         },
       },
     });
+
     return {
       readingList: count[0]._count.FavoritePost,
       liked: count[0]._count.LikedPost,
     };
   }
 
-  async getLikedActivity(dto: { page: number; limit: number }): Promise<IActivity[]> {
+  async getLikedActivity(dto: IActivityDto): Promise<IActivityReactionResponse[]> {
     const { page, limit } = dto;
 
     return await this._db.likedPost.findMany({
@@ -88,7 +87,7 @@ export class ReactionRepository implements IReactionRepository {
     });
   }
 
-  async getFavoritesActivity(dto: { page: number; limit: number }): Promise<IActivity[]> {
+  async getFavoritesActivity(dto: IActivityDto): Promise<IActivityReactionResponse[]> {
     const { page, limit } = dto;
 
     return await this._db.favoritePost.findMany({

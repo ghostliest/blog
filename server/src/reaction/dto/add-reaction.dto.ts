@@ -1,22 +1,22 @@
 import { IsNotEmpty, IsEnum, IsNumber, IsEmpty } from 'class-validator';
+import { TCategory } from '../types/service.types';
 
-type categoriesType = 'readingList' | 'like';
-const categories: categoriesType[] = ['readingList', 'like'];
+const categories: TCategory[] = ['readingList', 'like'];
 
 export interface IAddReactionDto {
-  category: categoriesType;
+  category: TCategory;
   postId: number;
   userId: number;
 }
 
 export class AddReactionDto implements IAddReactionDto {
   @IsEnum(categories)
-  category: categoriesType;
+  category: TCategory;
 
   @IsNumber()
   @IsNotEmpty()
   postId: number;
 
   @IsEmpty()
-  userId: number = null;
+  userId: number = undefined;
 }
