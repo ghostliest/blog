@@ -11,6 +11,9 @@ import { CategoryModule } from './category/category.module';
 import { TagModule } from './tag/tag.module';
 import { ReactionModule } from './reaction/reaction.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { FollowModule } from './follow/follow.module';
+import { ActivityModule } from './activity/activity.module';
+import { StatisticsModule } from './statistics/statistics.module';
 
 @Module({
   imports: [
@@ -37,6 +40,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     CategoryModule,
     TagModule,
     ReactionModule,
+    FollowModule,
+    ActivityModule,
+    StatisticsModule,
   ],
 })
 export class AppModule {}
