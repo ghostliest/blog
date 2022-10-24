@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ReactionController } from './reaction.controller';
 import { ReactionService } from './reaction.service';
-import { IReactionRepository, ReactionRepository } from './reaction.repository';
+import { ReactionRepository } from './reaction.repository';
 import { DATABASE, DatabaseModule } from '../database/database.module';
+import { IReactionRepository } from './types/repository.types';
 
 @Module({
   imports: [DatabaseModule],
@@ -20,5 +21,6 @@ import { DATABASE, DatabaseModule } from '../database/database.module';
       inject: [DATABASE],
     },
   ],
+  exports: [ReactionService],
 })
 export class ReactionModule {}

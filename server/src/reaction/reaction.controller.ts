@@ -1,4 +1,13 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, UsePipes } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Post,
+  Query,
+  UsePipes,
+} from '@nestjs/common';
 import { Auth } from 'src/common/decorators/auth.decorator';
 import { User } from 'src/common/decorators/user.decorator';
 import { IJwtUser } from 'src/common/interfaces/jwt-user.interface';
@@ -27,12 +36,11 @@ export class ReactionController {
     }
   }
 
-  @Auth()
   @UsePipes(ValidationPipe)
   @Get()
-  async get(@Body() dto: GetReactionDto, @User() user: IJwtUser) {
+  async get(@Query() dto: GetReactionDto) {
     try {
-      return await this._reactionService.get({ ...dto, userId: user.id });
+      return await this._reactionService.get(dto);
     } catch (error) {
       if (error instanceof ServiceException) {
         throw new HttpException(error.message, HttpStatus.BAD_REQUEST);

@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { ISingupDto } from './dto/signup.dto';
-import { IUserService } from 'src/user/user.service';
+import { IUserService } from 'src/user/types/service.types';
 import { ISigninDto } from './dto/signin.dto';
 import { ServiceException } from 'src/exceptions/service.exception';
 

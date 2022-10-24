@@ -1,19 +1,6 @@
 import { PrismaService } from '../database/prisma.service';
 import { ISingupDto } from '../auth/dto/signup.dto';
-import { User } from '@prisma/client';
-
-interface ICreateResponse {
-  id: number;
-  email: string;
-  role: string;
-}
-
-export interface IUserRepository {
-  create(data: ISingupDto): Promise<ICreateResponse>;
-  getByEmail(email: string): Promise<User | null>;
-  update(): Promise<any>;
-  delete(userId: number): Promise<void>;
-}
+import { ICreateResponse, IUserRepository, TGetByResponse } from './types/repository.types';
 
 export class UserRepository implements IUserRepository {
   constructor(private _db: PrismaService) {}
@@ -25,10 +12,14 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  async getByEmail(email: string): Promise<User | null> {
+  async getByEmail(email: string): Promise<TGetByResponse> {
     return await this._db.user.findUnique({
       where: { email },
     });
+  }
+
+  async getById(id: number): Promise<TGetByResponse> {
+    return await this._db.user.findUnique({ where: { id } });
   }
 
   async update(): Promise<any> {

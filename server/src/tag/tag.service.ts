@@ -1,10 +1,12 @@
 import { ITagRepository } from './tag.repository';
 import { ICreateTagDto } from './dto/create-tag.dto';
 import { ServiceException } from '../exceptions/service.exception';
+import { ISearchTagQueryDto } from './dto/search-tag-query.dto';
 
 interface ITagService {
   create(dto: ICreateTagDto): Promise<any>;
   getAll(): Promise<{ id: number; value: string }[]>;
+  search(dto: ISearchTagQueryDto): Promise<{ id: number; value: string }[] | []>;
 }
 
 export class TagService implements ITagService {
@@ -21,5 +23,9 @@ export class TagService implements ITagService {
 
   async getAll(): Promise<{ id: number; value: string }[]> {
     return await this._repo.getAll();
+  }
+
+  async search(dto: ISearchTagQueryDto): Promise<{ id: number; value: string }[] | []> {
+    return await this._repo.search(dto);
   }
 }

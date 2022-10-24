@@ -1,15 +1,17 @@
-import { IsEmpty, IsNotEmpty, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export interface IGetReactionDto {
   postId: number;
-  userId: number;
+  userId?: number;
 }
 
 export class GetReactionDto implements IGetReactionDto {
-  @IsNumber()
   @IsNotEmpty()
+  @Type(() => Number)
   postId: number;
 
-  @IsEmpty()
-  userId: number = null;
+  @IsOptional()
+  @Type(() => Number)
+  userId?: number;
 }
