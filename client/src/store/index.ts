@@ -5,6 +5,6 @@ import { reducer, RootState } from "./reducers";
 
 // TODO
 // @ts-ignore
-export const store = () => createStore(reducer, {}, composeWithDevTools());
+export const store = (initialState = {}) => createStore(reducer, initialState, composeWithDevTools());
 
 export const wrapper = createWrapper<Store<RootState>>(store, { debug: true });
