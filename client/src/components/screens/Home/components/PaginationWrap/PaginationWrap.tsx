@@ -46,13 +46,9 @@ export const PaginationWrap = () => {
     }
   }, [count, limit]);
 
-  const next = () => {
-    page < lastPage && setPage(page + 1);
-  };
+  const next = () => setPage(page + 1);
 
-  const back = () => {
-    page > 1 && setPage(page - 1);
-  };
+  const back = () => setPage(page - 1);
 
   return <Pagination page={page} lastPage={lastPage} next={next} back={back} />;
 };

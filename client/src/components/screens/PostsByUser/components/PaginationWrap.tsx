@@ -15,11 +15,11 @@ export const PaginationWrap = () => {
   }, [query, count]);
 
   const next = () => {
-    query.page < lastPage && setPostsByUserQuery({ ...query, page: query.page + 1 });
+    setPostsByUserQuery({ ...query, page: query.page + 1 });
   };
 
   const back = () => {
-    query.page > 1 && setPostsByUserQuery({ ...query, page: query.page - 1 });
+    setPostsByUserQuery({ ...query, page: query.page - 1 });
   };
 
   return <Pagination page={query.page} lastPage={lastPage} next={next} back={back} />;

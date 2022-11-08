@@ -5,7 +5,7 @@ import { PaginationProps } from "./Pagination.props";
 
 export const Pagination = ({ page, lastPage, next, back, className = "" }: PaginationProps) => {
   const ItemBtn = ({ arrow, onClick }: { arrow: "left" | "right"; onClick: MouseEventHandler<HTMLButtonElement> }) => (
-    <Button className="justify-center w-full" appearance="light" onClick={onClick}>
+    <Button className="justify-center w-full" appearance="light" data-testid={arrow} onClick={onClick}>
       <span>
         <ArrowIcon className={`h-6 w-6 fill-primary-color ${arrow === "left" ? "rotate-90" : "-rotate-90"}`} />
       </span>
@@ -14,9 +14,17 @@ export const Pagination = ({ page, lastPage, next, back, className = "" }: Pagin
 
   const Pages = () => (
     <div className="flex items-center justify-center w-full bg-white text-primary-color font-medium rounded-md">
-      <span>{`${page} of ${lastPage}`}</span>
+      <span data-testid="value">{`${page} of ${lastPage}`}</span>
     </div>
   );
+
+  const nextWrap = () => {
+    page < lastPage && next();
+  };
+
+  const backWrap = () => {
+    page > 1 && back();
+  };
 
   return (
     <div
@@ -24,9 +32,9 @@ export const Pagination = ({ page, lastPage, next, back, className = "" }: Pagin
         lastPage ? "opacity-100" : "opacity-0"
       } ${className}`}
     >
-      <ItemBtn arrow="left" onClick={back} />
+      <ItemBtn arrow="left" onClick={backWrap} />
       <Pages />
-      <ItemBtn arrow="right" onClick={next} />
+      <ItemBtn arrow="right" onClick={nextWrap} />
     </div>
   );
 };
