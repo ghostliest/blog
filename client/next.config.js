@@ -7,7 +7,7 @@ const nextConfig = {
     BASE_URL: process.env.NEXT_PUBLIC_API_URL,
   },
   images: {
-    domains: ["localhost"],
+    domains: [process.env.HOSTNAME],
   },
   webpack(config) {
     config.module.rules.push({
